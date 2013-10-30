@@ -12,6 +12,7 @@ class TestFrame(wx.Frame):
         self.Bind(wx.EVT_BUTTON,self.OnClick,self.button)
 
     def OnClick(self,event):
+        #There is three way to find some item
         #item = wx.FindWindowByLabel('Kick me')
         #item = wx.FindWindowByName('xbutton',self.panel)
         id = event.GetId()
