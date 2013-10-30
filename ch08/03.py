@@ -5,11 +5,11 @@ import wx
 
 class SubclassFrame(wx.Frame):
     def __init__(self):
-        wx.Frame.__init__(self,None,-1,'Frame Subclass',size=(300,100),style=wx.FRAME_TOOL_WINDOW | wx.CAPTION | wx.SYSTEM_MENU)
-        panel = wx.Panel(self,-1)
-        button = wx.Button(panel,-1,"Close Me",pos=(15,15))
-        button.SetDefault()
-        self.Bind(wx.EVT_BUTTON,self.OnCloseMe,button)
+        wx.Frame.__init__(self,None,-1,'Frame Subclass',size=(300,100))
+        self.panel = wx.Panel(self,-1)
+        self.button = wx.Button(self.panel,-1,"Close Me",pos=(15,15))
+        self.button.SetDefault()
+        self.Bind(wx.EVT_BUTTON,self.OnCloseMe,self.button)
         self.Bind(wx.EVT_CLOSE,self.OnCloseWindow)
 
     def OnCloseMe(self,event):
@@ -18,7 +18,11 @@ class SubclassFrame(wx.Frame):
     def OnCloseWindow(self,event):
         self.Destroy()
 
+class App(wx.App):
+    def OnInit(self):
+        self.frame = SubclassFrame()
+        self.frame.Show(True)
+        return True
 if __name__ == "__main__":
-        app = wx.PySimpleApp()
-        SubclassFrame().Show()
+        app = App()
         app.MainLoop()
