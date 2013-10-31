@@ -10,7 +10,8 @@ class ShapedFrame(wx.Frame):
         self.hasShape = False
 
         #1 获取图像
-        self.bmp = images.getVippiBitmap()
+        self.bmp = wx.Image('./vippi.png',wx.BITMAP_TYPE_PNG).ConvertToBitmap()
+        #self.bmp = images.getVippiBitmap()
         self.SetClientSize((self.bmp.GetWidth(),self.bmp.GetHeight()))
 
         #2 绘制图像
@@ -20,7 +21,7 @@ class ShapedFrame(wx.Frame):
         self.Bind(wx.EVT_LEFT_DCLICK,self.OnDoubleClick)
         self.Bind(wx.EVT_RIGHT_UP,self.OnExit)
         self.Bind(wx.EVT_PAINT,self.OnPaint)
-        self.Bind(wx.EVT_WINDOW_Create,self.SetWindowShape)#3 绑定窗口创建事件
+        self.Bind(wx.EVT_WINDOW_CREATE,self.SetWindowShape)#3 绑定窗口创建事件
 
     def SetWindowShape(self,evt=None):#4 设置形状
         r = wx.RegionFromBitmap(self.bmp)
