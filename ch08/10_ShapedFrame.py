@@ -17,7 +17,7 @@ class ShapedFrame(wx.Frame):
         #2 绘制图像
         dc = wx.ClientDC(self)
         dc.DrawBitmap(self.bmp,0,0,True)
-        self.SetWindowShape()
+        #self.SetWindowShape()
         self.Bind(wx.EVT_LEFT_DCLICK,self.OnDoubleClick)
         self.Bind(wx.EVT_RIGHT_UP,self.OnExit)
         self.Bind(wx.EVT_PAINT,self.OnPaint)
