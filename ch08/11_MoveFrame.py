@@ -8,21 +8,21 @@ import wx
 class MoveFrame(wx.Frame):
     def __init__(self):
         wx.Frame.__init__(self,None,-1,'Move Frame',style=wx.FRAME_SHAPED | wx.SIMPLE_BORDER)
-        img = wx.Image('trans.png',wx.BITMAP_TYPE_PNG)
+        img = wx.Image('a.png',wx.BITMAP_TYPE_PNG)
         
         #1 下面5行为手动设置图片掩码的第一种方法
-        if not img.HasMask():
+        '''if not img.HasMask():
             img.SetMaskColour(255,255,255)
         else:
             print('Yes,I have a Image musk')
-        img.SetMask(True)
+        img.SetMask(True)'''
 
         self.bmp = img.ConvertToBitmap()
 
         #2 下面三行为手动设置图片掩码的第二种方法
         print(self.bmp.GetMask())
         if not  self.bmp.GetMask():
-            self.bmp.SetMask(wx.Mask(self.bmp,'Black'))
+            self.bmp.SetMask(wx.Mask(self.bmp,wx.WHITE))
 
         self.SetClientSize((self.bmp.GetWidth(),self.bmp.GetHeight()))
         self.delta = wx.Point(0,0)
@@ -47,6 +47,7 @@ class MoveFrame(wx.Frame):
         pos = self.ClientToScreen(evt.GetPosition())
         origin = self.GetPosition()
         self.delta = wx.Point(pos.x - origin.x, pos.y - origin.y)
+        #print('Rigth Button')按下时触发一次，移动的过程中不会触发
 
     def OnLeftUp(self,evt):
         if self.HasCapture():
