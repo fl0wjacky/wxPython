@@ -1,6 +1,11 @@
 #! /usr/bin/env python
 # coding:utf-8
 
+'''
+if the button ID is wx.ID_OK or wx.ID_CANCEL or the integers these two button present,the behaviours are pre-defined,
+else you have to define the handler method by yourself
+'''
+
 import wx
 
 class SubclassDialog(wx.Dialog):
