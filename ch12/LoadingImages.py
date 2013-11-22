@@ -8,6 +8,8 @@ class TestFrame(wx.Frame):
     def __init__(self):
         wx.Frame.__init__(self, None, -1, 'Loading Images')
         self.panel = p = wx.Panel(self)
+        
+        wx.SetCursor(wx.Cursor('smiles.ico',wx.BITMAP_TYPE_ICO))
 
         fgs = wx.FlexGridSizer(cols = 2, hgap = 10, vgap = 10)
         
