@@ -106,16 +106,16 @@ class RadarGraph(wx.Window):
             angle = angle + 360 / len(self.labels)
 
             # Set the brush color based on the max value (green is good, red is bad)
-            c = 'forest green'
-            if maxval > 70:
-                c = 'yellow'
-            if maxval > 95:
-                c = 'red'
+        c = 'forest green'
+        if maxval > 70:
+            c = 'yellow'
+        if maxval > 95:
+            c = 'red'
 
-            # Finally, draw the plot data as a file polygon
-            dc.SetBrush(wx.Brush(c)) # set the brush color
-            dc.SetPen(wx.Pen('navy', 3))
-            dc.DrawPolygon(polypoints)
+        # Finally, draw the plot data as a file polygon
+        dc.SetBrush(wx.Brush(c)) # set the brush color
+        dc.SetPen(wx.Pen('navy', 3))
+        dc.DrawPolygon(polypoints)
 
 class TestFrame(wx.Frame):
     def __init__(self):
