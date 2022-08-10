@@ -1,0 +1,68 @@
+port: 8888
+socks-port: 8889
+redir-port: 8890
+allow-lan: true
+mode: Rule
+log-level: info
+
+external-controller: 0.0.0.0:6300
+external-ui: clash-dashboard
+secret: "centos"
+
+experimental:
+  ignore-resolve-fail: false
+
+dns:
+  enable: true
+  ipv6: false
+  listen: 0.0.0.0:53
+  enhanced-mode: redir-host
+  nameserver:
+    - 114.114.114.114
+    - 223.5.5.5
+    - tls://8.8.8.8:853
+    - https://dns.alidns.com/dns-query # DNS-over-
+  fallback:
+    - tls://8.8.8.8:853
+    - https://dns.google/dns-query
+
+hosts:
+  "dns.alidns.com": 223.5.5.5
+
+proxies:
+  - name: "sshwus"
+    type: ss
+    server: 122.112.185.211 
+    port: 8001
+    cipher: aes-256-cfb
+    password: "abc123***"
+  - name: "sshw"
+    type: ss
+    server: 122.112.185.211 
+    port: 8000
+    cipher: aes-256-cfb
+    password: "abc123***"
+
+proxy-groups:
+  # 自动切换
+  - name: "auto"
+    type: url-test
+    proxies:
+      - sshwus
+      - sshw
+      #- us02_https
+      #- hk_https
+    # tolerance: 150
+    url: 'https://www.google.com/'
+    interval: 300
+
+rules:
+# LAN
+  - DOMAIN-SUFFIX,local,DIRECT
+  - IP-CIDR,127.0.0.0/8,DIRECT
+  - IP-CIDR,172.16.0.0/12,DIRECT
+  - IP-CIDR,192.168.0.0/16,DIRECT
+  - IP-CIDR,10.0.0.0/8,DIRECT
+# 最终规则（除了中国区的IP之外的，全部翻墙）
+  - GEOIP,CN,DIRECT
+  - MATCH,auto
